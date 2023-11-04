@@ -9,6 +9,7 @@ using jokes_app.Data;
 using jokes_app.Models;
 using Microsoft.AspNetCore.Authorization;
 
+
 namespace jokes_app.Controllers
 {
     public class JokesController : Controller
@@ -25,6 +26,7 @@ namespace jokes_app.Controllers
         {
               return _context.Joke != null ? 
                           View(await _context.Joke.ToListAsync()) :
+
                           Problem("Entity set 'ApplicationDbContext.Joke'  is null.");
         }
 
@@ -38,6 +40,7 @@ namespace jokes_app.Controllers
         public async Task<IActionResult> ShowSearchResults(String SearchPhrase)
         {
             return View("Index",await _context.Joke.Where( j => j.JokeQuestion.Contains(SearchPhrase) ).ToListAsync());
+
         }
 
         // GET: Jokes/Details/5
@@ -59,6 +62,7 @@ namespace jokes_app.Controllers
         }
 
         // GET: Jokes/Create
+
         [Authorize]
         public IActionResult Create()
         {
@@ -68,6 +72,7 @@ namespace jokes_app.Controllers
         // POST: Jokes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -162,6 +167,7 @@ namespace jokes_app.Controllers
             if (_context.Joke == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.Joke'  is null.");
+
             }
             var joke = await _context.Joke.FindAsync(id);
             if (joke != null)
